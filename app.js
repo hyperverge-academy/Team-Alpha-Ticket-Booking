@@ -6,10 +6,6 @@ app.listen(port,()=> {
     console.log(`app is listening on ${port}`)
 })
 
-// app.get('/', (req, res) => {
-//     res.send("Welcome")
-// })
-
 const routes = require('./routes/health.route')
 app.use(routes)
 
