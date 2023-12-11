@@ -5,6 +5,3 @@ const get = function (){
 }
 
 module.exports = {get}
-
-
-
