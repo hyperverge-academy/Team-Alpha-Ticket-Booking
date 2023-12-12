@@ -1,7 +1,7 @@
 const userModel = require('../Models/users.model')
 
 const validate = function (doc){
-  if(!doc.busId || !doc.passangerName || !doc.gender || !doc.travellingDateAndTime || !doc.from || !doc.to || !doc.seatNumber){
+  if(!doc.busId || !doc.passangerName || !doc.gender || !doc.departureDateAndTime || !doc.arrivalDateAndTime || !doc.from || !doc.to || !doc.seatNumber || !doc.price){
     const validation ={
       "status": "false",
       "message": "please fill all required information.",
@@ -25,10 +25,19 @@ const validate = function (doc){
     }
     return validation
   }
-  if(new Date(doc.travellingDateAndTime) < new Date() ){
+  if(new Date(doc.departureDateAndTime) < new Date() ){
     const validation ={
       "status": "false",
       "message": "please choose appropriate Date.",
+      "statusCode": 400
+    }
+    return validation
+  }
+
+  if(doc.price > 10000){
+    const validation ={
+      "status": "false",
+      "message": "please provide price under 10000.",
       "statusCode": 400
     }
     return validation
