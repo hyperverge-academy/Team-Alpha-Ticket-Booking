@@ -1,8 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const routes = require('./routes/health.route')
+
 const createBusRoute= require('./routes/bus.route')
 
+
+const bookingRouter = require('./routes/users.route')
 const app = express()
 const port = 3000
 
@@ -15,3 +18,5 @@ app.use(bodyParser.json())
 app.use(routes)
 
 app.use(createBusRoute)
+app.use(bookingRouter)
+
