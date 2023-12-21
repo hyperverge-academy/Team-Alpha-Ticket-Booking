@@ -1,11 +1,11 @@
 const {MongoClient}=require('mongodb')
-const uri="mongodb://127.0.0.1:27017/";
+const dbConstants = require('../constants/db.constants')
 
 async function insertBusDetails(doc){
-    const client = new MongoClient(uri);
+    const client = new MongoClient(dbConstants.uri);
     try{
-        const database=client.db("busBooking");
-        const collection=database.collection("Buses")
+        const database=client.db(dbConstants.dbName);
+        const collection=database.collection(dbConstants.busCollection)
 
         const result = await collection.insertOne(doc);
         resBody={

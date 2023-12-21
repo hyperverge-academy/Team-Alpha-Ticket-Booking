@@ -1,11 +1,10 @@
 const busesService=require('../services/bus.services')
 
-const postingData=async function (req,res){
-    
+const busDetails=async function (req,res){
     const insertingDetails=req.body
-    const returnData=await busesService.validation(insertingDetails)
+    const addBusData=await busesService.validation(insertingDetails)
     // res.status(returnData.statusCode).json(returnData)
-    res.send(returnData)
+    res.send(addBusData)
 }
 
-module.exports={postingData}
+module.exports={busDetails}
