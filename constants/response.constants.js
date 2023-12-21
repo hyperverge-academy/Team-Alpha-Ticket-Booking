@@ -46,8 +46,6 @@ const resconst = {
         "status": "false",
         "statusCode": 400 
     }
-
-
 }
 
 module.exports = resconst
