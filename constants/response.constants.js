@@ -18,9 +18,15 @@ const resconst = {
     },
 
     daysValueValidationError : {
-        "message":"please fill week days.",
+        "message":"please fill week days in required format.",
         "status": "false",
         "statusCode": 400
+    },
+
+    successStatus:{
+        "message": "successfully inserted",
+        "status": "success",
+        "statusCode":"200"
     },
 
     registrationMissingField: {
