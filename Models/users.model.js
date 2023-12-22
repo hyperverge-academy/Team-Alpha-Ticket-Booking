@@ -20,14 +20,18 @@ const booking = async function insertBooking(bookingDoc) {
   }
 
 
-const registration = async function insertUserDetails(userDoc) {
+const registration = async function insertUserDetails(userDetail) {
   const client = new MongoClient(dbConstants.uri)
   try {
     const database = client.db(dbConstants.dbName);
     const collection = database.collection(dbConstants.userCollection);
-    const result = await collection.insertOne(userDoc);
+    const result = await collection.insertOne(userDetail);
     return resConstants.registrationSuccess
-  } finally {
+  }
+  catch (error) {
+    console.error("registration error: ", error);
+  } 
+  finally {
     await client.close();
   }
 } 

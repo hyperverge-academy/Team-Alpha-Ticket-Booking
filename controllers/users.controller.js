@@ -8,7 +8,6 @@ const bookingData = async function(req,res){
 }
 
 const registrationData = async function(req,res){
-    const {fullName, mobileNumber, password} = req.body
     const userDetails = req.body
     const userData = await usersService.registrationValidation(userDetails)
     res.send(userData)
