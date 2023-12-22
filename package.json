@@ -9,6 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyperverge-academy/Team-Alpha-Ticket-Booking.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hyperverge-academy/Team-Alpha-Ticket-Booking/issues"
+  },
+  "homepage": "https://github.com/hyperverge-academy/Team-Alpha-Ticket-Booking#readme"
 }
