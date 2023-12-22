@@ -1,11 +1,11 @@
 let{ MongoClient} = require("mongodb")
-const uri = "mongodb://127.0.0.1:27017/"
+const dbConstants = require('../constants/db.constants')
 
 const booking = async function insertBooking(bookingDoc) {
-    const client = new MongoClient(uri)
+    const client = new MongoClient(dbConstants.uri)
     try {
-      const database = client.db("busBooking");
-      const info = database.collection("bookings");
+      const database = client.db(dbConstants.dbName);
+      const info = database.collection(dbConstants.busCollection);
       
       const result = await info.insertOne(bookingDoc);
       console.log(`A document was inserted with the _id: ${result.insertedId}`);
@@ -17,4 +17,24 @@ const booking = async function insertBooking(bookingDoc) {
       await client.close();
     }
   }
-  module.exports = {booking}
+
+  const registration = async function insertUserDetails(userDoc) {
+    const client = new MongoClient(dbConstants.uri)
+    try {
+      const database = client.db(dbConstants.dbName);
+      const collection = database.collection(dbConstants.userCollection);
+      const result = await collection.insertOne(userDoc);
+    
+      const message = {
+        message: "You have registered seccessfully. "
+      }
+      return message 
+    } finally {
+      await client.close();
+    }
+  } 
+
+  module.exports = {
+    booking,
+    registration
+  }
