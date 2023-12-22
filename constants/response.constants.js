@@ -51,7 +51,14 @@ const resconst = {
         "message":"password lenght should greater than 5 and less than 20.",
         "status": "false",
         "statusCode": 400 
-    }
+    },
+
+    registrationSuccess: {
+        "message": "You have registered seccessfully.",
+        "status": "success",
+        "statusCode":"200"
+      }
+
 }
 
 module.exports = resconst

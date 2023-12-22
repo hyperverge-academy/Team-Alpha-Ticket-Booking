@@ -1,5 +1,6 @@
 let{ MongoClient} = require("mongodb")
 const dbConstants = require('../constants/db.constants')
+const resConstants = require('../constants/response.constants')
 
 const booking = async function insertBooking(bookingDoc) {
     const client = new MongoClient(dbConstants.uri)
@@ -18,23 +19,20 @@ const booking = async function insertBooking(bookingDoc) {
     }
   }
 
-  const registration = async function insertUserDetails(userDoc) {
-    const client = new MongoClient(dbConstants.uri)
-    try {
-      const database = client.db(dbConstants.dbName);
-      const collection = database.collection(dbConstants.userCollection);
-      const result = await collection.insertOne(userDoc);
-    
-      const message = {
-        message: "You have registered seccessfully. "
-      }
-      return message 
-    } finally {
-      await client.close();
-    }
-  } 
 
-  module.exports = {
-    booking,
-    registration
+const registration = async function insertUserDetails(userDoc) {
+  const client = new MongoClient(dbConstants.uri)
+  try {
+    const database = client.db(dbConstants.dbName);
+    const collection = database.collection(dbConstants.userCollection);
+    const result = await collection.insertOne(userDoc);
+    return resConstants.registrationSuccess
+  } finally {
+    await client.close();
   }
+} 
+
+module.exports = {
+  booking,
+  registration
+}

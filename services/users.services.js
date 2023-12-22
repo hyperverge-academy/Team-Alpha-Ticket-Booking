@@ -70,7 +70,6 @@ const registrationValidation = function (userInfo){
 
 }
 
-
 module.exports = {
   validate, 
   registrationValidation
