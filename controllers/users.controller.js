@@ -6,4 +6,10 @@ const bookingData = async function(req,res){
     const response = await usersService.validate(ticketData)
     res.send(response)
 }
-module.exports = {bookingData}
+
+const registrationData = async function(req,res){
+    const userDetails = req.body
+    const userData = await usersService.registrationValidation(userDetails)
+    res.send(userData)
+}
+module.exports = {bookingData, registrationData}

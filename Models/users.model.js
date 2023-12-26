@@ -1,11 +1,12 @@
 let{ MongoClient} = require("mongodb")
-const uri = "mongodb://127.0.0.1:27017/"
+const dbConstants = require('../constants/db.constants')
+const resConstants = require('../constants/response.constants')
 
 const booking = async function insertBooking(bookingDoc) {
-    const client = new MongoClient(uri)
+    const client = new MongoClient(dbConstants.uri)
     try {
-      const database = client.db("busBooking");
-      const info = database.collection("bookings");
+      const database = client.db(dbConstants.dbName);
+      const info = database.collection(dbConstants.busCollection);
       
       const result = await info.insertOne(bookingDoc);
       console.log(`A document was inserted with the _id: ${result.insertedId}`);
@@ -16,5 +17,46 @@ const booking = async function insertBooking(bookingDoc) {
     } finally {
       await client.close();
     }
+}
+
+
+const registration = async function insertUserDetails(userDetail) {
+  const client = new MongoClient(dbConstants.uri)
+  try {
+    const database = client.db(dbConstants.dbName);
+    const collection = database.collection(dbConstants.userCollection);
+    const result = await collection.insertOne(userDetail);
+    return resConstants.registrationSuccess
   }
-  module.exports = {booking}
+  catch (error) {
+    console.error("registration error: ", error);
+    return resConstants.internalServerError
+  } 
+  finally {
+    await client.close();
+  }
+} 
+
+const loginfun = async function findingDetails(mobileNo) {
+  const client = new MongoClient(dbConstants.uri)
+  try {
+    const database = client.db(dbConstants.dbName);
+    const collection = database.collection(dbConstants.userCollection);
+    const query = {mobileNumber: mobileNo}
+    const result = await collection.findOne(query);
+    return resConstants.registrationSuccess
+  }
+  catch (error) {
+    console.error("login error: ", error);
+    return resConstants.internalServerError
+  } 
+  finally {
+    await client.close();
+  }
+}
+
+module.exports = {
+  booking,
+  registration,
+  loginfun
+}

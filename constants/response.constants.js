@@ -1,6 +1,6 @@
 const resconst = {
     missingFieldValidationError : {
-        "message":"please fill all Bus details",
+        "message":"please fill all required details",
         "status": "false",
         "statusCode": 400
     },
@@ -29,12 +29,6 @@ const resconst = {
         "statusCode":"200"
     },
 
-    registrationMissingField: {
-        "message":"please fill all required details",
-        "status": "false",
-        "statusCode": 400  
-    },
-
     nanMobileValidation: {
         "message":"Only digitgs(numeric values) are allowed",
         "status": "false",
@@ -51,7 +45,27 @@ const resconst = {
         "message":"password lenght should greater than 5 and less than 20.",
         "status": "false",
         "statusCode": 400 
+    },
+
+    registrationSuccess: {
+        "message": "You have registered seccessfully.",
+        "status": "success",
+        "statusCode":"200"
+    },
+    internalServerError: {
+        "message": "Interval server error. We are looking into this.",
+        "status": "false",
+        "statusCode":"500"
     }
+
 }
+
+// const loginConst = {
+//     loginSuccess: {
+//         "message": "You have login seccessfully.",
+//         "status": "success",
+//         "statusCode":"200"
+//       }
+// }
 
 module.exports = resconst
