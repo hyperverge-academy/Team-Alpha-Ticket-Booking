@@ -17,7 +17,7 @@ const booking = async function insertBooking(bookingDoc) {
     } finally {
       await client.close();
     }
-  }
+}
 
 
 const registration = async function insertUserDetails(userDetail) {
@@ -30,13 +30,33 @@ const registration = async function insertUserDetails(userDetail) {
   }
   catch (error) {
     console.error("registration error: ", error);
+    return resConstants.internalServerError
   } 
   finally {
     await client.close();
   }
 } 
 
+const loginfun = async function findingDetails(mobileNo) {
+  const client = new MongoClient(dbConstants.uri)
+  try {
+    const database = client.db(dbConstants.dbName);
+    const collection = database.collection(dbConstants.userCollection);
+    const query = {mobileNumber: mobileNo}
+    const result = await collection.findOne(query);
+    return resConstants.registrationSuccess
+  }
+  catch (error) {
+    console.error("login error: ", error);
+    return resConstants.internalServerError
+  } 
+  finally {
+    await client.close();
+  }
+}
+
 module.exports = {
   booking,
-  registration
+  registration,
+  loginfun
 }

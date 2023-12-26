@@ -51,7 +51,7 @@ const validate = function (doc){
 
 const registrationValidation = function (userInfo){
   if(!userInfo.fullName || !userInfo.mobileNumber || !userInfo.password){
-    return responseConst.registrationMissingField
+    return responseConst.missingFieldValidationError
   }
 
   if(isNaN(userInfo.mobileNumber)){
@@ -67,10 +67,17 @@ const registrationValidation = function (userInfo){
   }
 
   return userModel.registration(userInfo)
+}
+
+const loginValidation = function (loginData){
+  if(!loginData.mobileNumber || !loginData.password){
+    return responseConst.missingFieldValidationError
+  }
 
 }
 
 module.exports = {
   validate, 
-  registrationValidation
+  registrationValidation,
+  loginValidation
 }
