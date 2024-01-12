@@ -9,7 +9,15 @@ const bookingData = async function(req,res){
 
 const registrationData = async function(req,res){
     const userDetails = req.body
+    console.log(userDetails)
     const userData = await usersService.registrationValidation(userDetails)
     res.send(userData)
 }
-module.exports = {bookingData, registrationData}
+
+const loginData = async function(req, res){
+    const checkDetails = req.body
+    const loginOutput = await usersService.loginValidation(checkDetails)
+    res.send(loginOutput)
+}
+
+module.exports = {bookingData, registrationData, loginData}

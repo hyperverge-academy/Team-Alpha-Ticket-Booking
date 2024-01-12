@@ -73,7 +73,14 @@ const loginValidation = function (loginData){
   if(!loginData.mobileNumber || !loginData.password){
     return responseConst.missingFieldValidationError
   }
+  if( loginData.mobileNumber.length !== 10 ){
+    return responseConst.mobileNumberLenghtValidation
+  }
+  if(loginData.password.length<6 || loginData.password.length>20 ){
+    return responseConst.passwordValidation 
+  }
 
+  return userModel.loginfun(loginData)
 }
 
 module.exports = {
