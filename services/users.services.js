@@ -1,4 +1,5 @@
 const userModel = require('../Models/users.model')
+const responseConst = require('../constants/response.constants')
 
 const validate = function (doc){
   if(!doc.busId || !doc.passangerName || !doc.gender || !doc.departureDateAndTime || !doc.arrivalDateAndTime || !doc.from || !doc.to || !doc.seatNumber || !doc.price){
@@ -42,10 +43,48 @@ const validate = function (doc){
     }
     return validation
   }
-  
   // TODO: Implement busId validation
 
   return userModel.booking(doc)
 }
 
-module.exports = {validate}
+
+const registrationValidation = function (userInfo){
+  if(!userInfo.fullName || !userInfo.mobileNumber || !userInfo.password){
+    return responseConst.missingFieldValidationError
+  }
+
+  if(isNaN(userInfo.mobileNumber)){
+    return responseConst.nanMobileValidation
+  }
+
+  if(userInfo.mobileNumber.length!=10){
+    return responseConst.mobileNumberLenghtValidation
+  }
+
+  if(userInfo.password.length<6 || userInfo.password.length>20 ){
+    return responseConst.passwordValidation 
+  }
+
+  return userModel.registration(userInfo)
+}
+
+const loginValidation = function (loginData){
+  if(!loginData.mobileNumber || !loginData.password){
+    return responseConst.missingFieldValidationError
+  }
+  if( loginData.mobileNumber.length !== 10 ){
+    return responseConst.mobileNumberLenghtValidation
+  }
+  if(loginData.password.length<6 || loginData.password.length>20 ){
+    return responseConst.passwordValidation 
+  }
+
+  return userModel.loginfun(loginData)
+}
+
+module.exports = {
+  validate, 
+  registrationValidation,
+  loginValidation
+}
