@@ -30,7 +30,7 @@ const booking = async function insertBooking(bookingDoc) {
     const client = new MongoClient(dbConstants.uri)
     try {
       const database = client.db(dbConstants.dbName);
-      const info = database.collection(dbConstants.busCollection);
+      const info = database.collection(dbConstants.bookingCollection);
       
       const result = await info.insertOne(bookingDoc);
       console.log(`A document was inserted with the _id: ${result.insertedId}`);

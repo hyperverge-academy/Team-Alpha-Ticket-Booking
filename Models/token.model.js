@@ -9,7 +9,7 @@ const createLoginToken = async function (userData) {
     const dball = await dbModel.dbConnection()
     const tokenCollection = dball.collection(dbConstants.tokenCollection);
 
-    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: '24h' })
+    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: '86400s' })
 
     const update = { $set: { token: token } }
     const tokenExistance = await tokenCollection.findOneAndUpdate({ userId: userData.mobileNumber }, update)
@@ -22,7 +22,7 @@ const createLoginToken = async function (userData) {
     }
 
     const successRes = {
-      message: resConstants.loginSuccess,
+      message: resConstants.loginSuccess,   
       contactNo: userData.mobileNumber,
       role: userData.role,
       token: token
@@ -36,16 +36,21 @@ const createLoginToken = async function (userData) {
 }
 
 
-const auth = async function (req, res) {
+const verifyToken = async function (req, res, next) {
+  console.log("verifyToken")
+  let token = await req.header("authorization");
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized HTTP, Token not provided." });
+  }
+
+  token = token.split(" ")[1]
+  console.log("token from verifyToken", token);
   try {
-    const token = await req.headers.authorization
-    if (token) {
-      token = token.split(" ")[1]
-      const user = jwt.verify(token, securityKey)
-    }
-    else {
-      return resConstants.unauthorizedError
-    }
+
+    const isVerified = jwt.verify(token, serviceConstants.serviceConst.securityKey)
+    console.log("isVerified", isVerified)
+
+    next()
   }
   catch (error) {
     console.log(error)
@@ -57,5 +62,5 @@ const auth = async function (req, res) {
 
 module.exports = {
   createLoginToken,
-  auth
+  verifyToken
 }
