@@ -30,37 +30,16 @@ const createLoginToken = async function (userData) {
     return successRes
 
   }
+  catch (error) {
+    console.log(error)
+    return resConstants.internalServerError 
+  }
   finally {
     // await client.close();
   }
 }
 
 
-const verifyToken = async function (req, res, next) {
-  console.log("verifyToken")
-  let token = await req.header("authorization");
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized HTTP, Token not provided." });
-  }
-
-  token = token.split(" ")[1]
-  console.log("token from verifyToken", token);
-  try {
-
-    const isVerified = jwt.verify(token, serviceConstants.serviceConst.securityKey)
-    console.log("isVerified", isVerified)
-
-    next()
-  }
-  catch (error) {
-    console.log(error)
-    return resConstants.unauthorizedError
-
-  }
-
-}
-
 module.exports = {
   createLoginToken,
-  verifyToken
 }

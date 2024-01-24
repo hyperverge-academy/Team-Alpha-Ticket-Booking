@@ -18,7 +18,6 @@ const registerAdmin= async function(){
       await collection.insertOne(serConst.serviceConst.adminData)
       return true;
     }
-
   }
   catch(error){
     console.error(" error: ", error);
@@ -74,6 +73,7 @@ const loginfun = async function findingDetails(userDetail) {
   try {
     const dbCall = await dbModel.dbConnection()
     const collection = dbCall.collection(dbConstants.userCollection);
+    // const tokenCollection = dbCall.collection(dbConstants.tokenCollection)
     const {mobileNumber, password} = userDetail
     const details = await collection.findOne({"mobileNumber": mobileNumber});
 
@@ -96,9 +96,7 @@ const loginfun = async function findingDetails(userDetail) {
     console.error("login error: ", error);
     return resConstants.internalServerError
   } 
-  // finally {
-  //   await client.close();
-  // }
+ 
 }
 
 module.exports = {
