@@ -50,7 +50,7 @@ const resconst = {
 
     registrationSuccess: {
         "message": "You have registered successfully.",
-        "status": "success",
+        "status": true,
         "statusCode":200
     },
     internalServerError: {

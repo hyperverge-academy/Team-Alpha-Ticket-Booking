@@ -9,7 +9,7 @@ const createLoginToken = async function (userData) {
     const dball = await dbModel.dbConnection()
     const tokenCollection = dball.collection(dbConstants.tokenCollection);
 
-    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: '86400s' })
+    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: serviceConstants.serviceConst.expireTime })
 
     const update = { $set: { token: token } }
     const tokenExistance = await tokenCollection.findOneAndUpdate({ userId: userData.mobileNumber }, update)

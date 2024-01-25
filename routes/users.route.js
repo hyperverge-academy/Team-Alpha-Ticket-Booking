@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const usersController = require('../controllers/users.controller')
 // const tokenModel = require('../Models/token.model')
-const tokenMiddleware = require('../middleware/tokenMiddleware')
+const tokenMiddleware = require('../middlewares/token.middlewares')
 
 
 router.post('/users/:userId/bookings', tokenMiddleware.verifyToken, usersController.bookingData)
