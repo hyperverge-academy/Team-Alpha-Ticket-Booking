@@ -1,3 +1,4 @@
+
 const resconst = {
     missingFieldValidationError : {
         "message":"please fill all required details",
@@ -49,7 +50,7 @@ const resconst = {
 
     registrationSuccess: {
         "message": "You have registered successfully.",
-        "status": "success",
+        "status": true,
         "statusCode":200
     },
     internalServerError: {
@@ -86,6 +87,12 @@ const resconst = {
         success : false,
         statusCode : 409 ,
         message : "You have already registered."
+    },
+
+    tokenExpiredError:{
+        success : false,
+        statusCode: 401,
+        message: "The provided token has expired. Please obtain a new token."
     }
 
 }

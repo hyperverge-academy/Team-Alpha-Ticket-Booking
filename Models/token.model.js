@@ -9,7 +9,7 @@ const createLoginToken = async function (userData) {
     const dball = await dbModel.dbConnection()
     const tokenCollection = dball.collection(dbConstants.tokenCollection);
 
-    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: '24h' })
+    const token = jwt.sign({ userData }, serviceConstants.serviceConst.securityKey, { expiresIn: serviceConstants.serviceConst.expireTime })
 
     const update = { $set: { token: token } }
     const tokenExistance = await tokenCollection.findOneAndUpdate({ userId: userData.mobileNumber }, update)
@@ -22,7 +22,7 @@ const createLoginToken = async function (userData) {
     }
 
     const successRes = {
-      message: resConstants.loginSuccess,
+      message: resConstants.loginSuccess,   
       contactNo: userData.mobileNumber,
       role: userData.role,
       token: token
@@ -30,32 +30,16 @@ const createLoginToken = async function (userData) {
     return successRes
 
   }
+  catch (error) {
+    console.log(error)
+    return resConstants.internalServerError 
+  }
   finally {
     // await client.close();
   }
 }
 
 
-const auth = async function (req, res) {
-  try {
-    const token = await req.headers.authorization
-    if (token) {
-      token = token.split(" ")[1]
-      const user = jwt.verify(token, securityKey)
-    }
-    else {
-      return resConstants.unauthorizedError
-    }
-  }
-  catch (error) {
-    console.log(error)
-    return resConstants.unauthorizedError
-
-  }
-
-}
-
 module.exports = {
   createLoginToken,
-  auth
 }
