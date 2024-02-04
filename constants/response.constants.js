@@ -93,6 +93,11 @@ const resconst = {
         success : false,
         statusCode: 401,
         message: "The provided token has expired. Please obtain a new token."
+    },
+    missingDocument:{
+        message: "No document exist",
+        "status": false,
+        "statusCode":204
     }
 
 }
