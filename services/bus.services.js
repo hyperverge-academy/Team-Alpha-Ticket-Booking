@@ -23,4 +23,11 @@ const validatingBusCreation=function(bodyData){
     return busesModels.insertBusDetails(bodyData)
 }
 
-module.exports = {validatingBusCreation}
+const getAllBuses = function(){
+    return busesModels.allBusDetails()
+}
+
+module.exports = {
+    validatingBusCreation,
+    getAllBuses,
+    }

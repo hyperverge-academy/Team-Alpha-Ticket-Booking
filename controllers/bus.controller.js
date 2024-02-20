@@ -6,4 +6,11 @@ const busDetails=async function (req,res){
     res.send(addBusData)
 }
 
-module.exports={busDetails}
+const allBusesData = async function (req, res){
+    const busData = await busesService.getAllBuses()
+    res.send(busData)
+}
+
+module.exports={busDetails,
+    allBusesData,
+    }
